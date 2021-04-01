@@ -40,11 +40,11 @@ horror = Genre.where(name: 'Horror').first
 romance = Genre.where(name: 'Romance').first
 
 # Books creation
-Book.create!([{ name: 'Hamlet', authors: [shakespear], genres: [classical] },
-              { name: 'Harry Potter', authors: [rowling], genres: [adventure, fantasy] },
-              { name: 'The Murder of Roger Ackroyd', authors: [christie], genres: [detective] },
-              { name: 'Royal', authors: [steel], genres: [historical] },
-              { name: 'The Carpetbaggers', authors: [dobbins], genres: [romance] },
-              { name: 'Maigret and the Calame report', authors: [simenon], genres: [scifi] },
-              { name: 'Stories of Pixies and Elves', authors: [blyton], genres: [comic] },
-              { name: 'The Sands of Time', authors: [sheldon], genres: [horror] }])
+Book.create!([{ name: 'Hamlet', authors: [shakespear], genres: [classical], image_url: 'https://d1b14unh5d6w7g.cloudfront.net/1980760071.01.S001.LXXXXXXX.jpg?Expires=1617377953&Signature=aZf+P/WCyhV5+D6sm68rGz7XywRAPWQMgr354Yej5QbuFEsltheKeWb+PkpJFT+yq9URWkHR69bcB3cCoNPS4KQ2zTqZddmi6Cs/k8Dq5OD9exFVMcsYoNWoGrFrOMvRPESVtm2TJDp+4fkpUmIDH8cJdXx2lQtWXc67JNd9EHg=&Key-Pair-Id=APKAIUO27P366FGALUMQ' },
+              { name: 'Harry Potter', authors: [rowling], genres: [adventure, fantasy], image_url: 'https://images-na.ssl-images-amazon.com/images/I/91l1Op79AWL.jpg' },
+              { name: 'The Murder of Roger Ackroyd', authors: [christie], genres: [detective], image_url: 'https://d188rgcu4zozwl.cloudfront.net/content/B01NARUK3U/images/cover.jpg' },
+              { name: 'Royal', authors: [steel], genres: [historical], image_url: 'https://d188rgcu4zozwl.cloudfront.net/content/B081Y4MM12/resources/314890188' },
+              { name: 'The Carpetbaggers', authors: [dobbins], genres: [romance], image_url: 'https://d188rgcu4zozwl.cloudfront.net/content/B00AJGNIL8/images/cover.jpg' },
+              { name: 'Maigret and the Calame report', authors: [simenon], genres: [scifi], image_url: 'https://images-na.ssl-images-amazon.com/images/I/51A9FRH5F0L.jpg' },
+              { name: 'Stories of Pixies and Elves', authors: [blyton], genres: [comic], image_url: 'https://images-na.ssl-images-amazon.com/images/I/716LcDg2dKL.jpg' },
+              { name: 'The Sands of Time', authors: [sheldon], genres: [horror], image_url: 'https://d188rgcu4zozwl.cloudfront.net/content/B003P2WOGS/images/cover.jpg' }])

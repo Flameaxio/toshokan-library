@@ -1,3 +1,4 @@
 class Genre < ApplicationRecord
-  has_many :books, through: BookGenreRelationship, dependent: delete(BookGenreRelationship.where(genre_id: id))
+  has_many :book_genre_relationships
+  has_many :books, through: :book_genre_relationships
 end

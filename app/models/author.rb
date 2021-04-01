@@ -1,3 +1,4 @@
 class Author < ApplicationRecord
-  has_many :books, through: BookAuthorRelationship, dependent: :delete_all
+  has_many :book_author_relationships
+  has_many :books, through: :book_author_relationships
 end

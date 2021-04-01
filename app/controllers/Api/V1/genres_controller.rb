@@ -1,6 +1,6 @@
 module Api
   module V1
-    class GenresController < ApplicationController
+    class GenresController < ApiController
 
     end
   end

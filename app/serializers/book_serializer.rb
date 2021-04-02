@@ -2,6 +2,11 @@ class BookSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name, :image_url, :slug
 
-  has_many :genres
-  has_many :authors
+  attribute :genres do |object|
+    object.genres.as_json
+  end
+
+  attribute :authors do |object|
+    object.authors.as_json
+  end
 end

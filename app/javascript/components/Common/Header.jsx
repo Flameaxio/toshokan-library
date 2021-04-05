@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from 'images/logo_transparent.png'
 import {Link} from "react-router-dom"
+import './header.scss'
 
 
 const Header = () => {

@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from "react-router-dom"
+import './books.scss'
 
 const Book = (props) => {
     const genres = props.attributes.genres.map((item, i) => {

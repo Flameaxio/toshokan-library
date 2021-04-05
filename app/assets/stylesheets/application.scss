@@ -14,8 +14,27 @@
  *= require_self
  */
 
-body {
-    width: 1200px;
+
+@import "bootstrap";
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    padding-top: 50px;
+    width: 1600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #2d3436;
+}
+
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 8px;
 }

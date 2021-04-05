@@ -40,7 +40,7 @@ horror = Genre.where(name: 'Horror').first
 romance = Genre.where(name: 'Romance').first
 
 # Books creation
-Book.create!([{ name: 'Hamlet', authors: [shakespear], genres: [classical], image_url: 'https://d1b14unh5d6w7g.cloudfront.net/1980760071.01.S001.LXXXXXXX.jpg?Expires=1617377953&Signature=aZf+P/WCyhV5+D6sm68rGz7XywRAPWQMgr354Yej5QbuFEsltheKeWb+PkpJFT+yq9URWkHR69bcB3cCoNPS4KQ2zTqZddmi6Cs/k8Dq5OD9exFVMcsYoNWoGrFrOMvRPESVtm2TJDp+4fkpUmIDH8cJdXx2lQtWXc67JNd9EHg=&Key-Pair-Id=APKAIUO27P366FGALUMQ' },
+Book.create!([{ name: 'Hamlet', authors: [shakespear], genres: [classical], image_url: 'https://d188rgcu4zozwl.cloudfront.net/content/B07VMPFCKM/resources/1574674465' },
               { name: 'Harry Potter', authors: [rowling], genres: [adventure, fantasy], image_url: 'https://images-na.ssl-images-amazon.com/images/I/91l1Op79AWL.jpg' },
               { name: 'The Murder of Roger Ackroyd', authors: [christie], genres: [detective], image_url: 'https://d188rgcu4zozwl.cloudfront.net/content/B01NARUK3U/images/cover.jpg' },
               { name: 'Royal', authors: [steel], genres: [historical], image_url: 'https://d188rgcu4zozwl.cloudfront.net/content/B081Y4MM12/resources/314890188' },

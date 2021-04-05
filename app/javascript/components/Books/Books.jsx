@@ -16,8 +16,8 @@ const Books = () => {
             })
     }, [books.length])
 
-    const grid = books.map( item => {
-        return(
+    const grid = books.map(item => {
+        return (
             <Book key={item.attributes.slug}
                   attributes={item.attributes}
             />
@@ -25,11 +25,12 @@ const Books = () => {
     })
 
     return (
-       <div className={'catalogue'}>
-           <div className="grid">
-               {grid}
-           </div>
-       </div>
+        <div className={'catalogue'}>
+            <h1>Catalogue: </h1>
+            <div className="grid">
+                    {grid}
+            </div>
+        </div>
     )
 }
 

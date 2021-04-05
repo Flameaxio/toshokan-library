@@ -1,18 +1,58 @@
-.grid{
+.catalogue{
+  box-sizing: border-box;
+  h1{
+    padding-left: 20px;
+    padding-bottom: 15px;
+  }
+  .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
-    width: 100%;
     padding: 20px;
-  .card{
-    border: 1px solid #efefef;
-    background-color: #fff;
-  }
-  .book-cover{
-    width: 50px;
-    img{
-      width: 50px;
+    width: 100%;
+    .card {
       border: 1px solid #efefef;
+      border-radius: 12%;
+      -webkit-box-shadow: 11px 10px 87px -6px rgba(0,0,0,0.26);
+      -moz-box-shadow: 11px 10px 87px -6px rgba(0,0,0,0.26);
+      box-shadow: 11px 10px 87px -6px rgba(0,0,0,0.26);
+      background-color: #fff;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .book-cover {
+        img {
+          height: 250px;
+          border: 1px solid #efefef;
+        }
+      }
+
+      .book-authors p a, .book-genres p a, .book-name a{
+        text-decoration: none;
+        color: inherit;
+        &:hover{
+          text-decoration: underline;
+          color: blue;
+          transition: 0.2s;
+        }
+      }
+
+      .card-bottom {
+        padding-left: 10%;
+        padding-right: 10%;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      transform: scale(1.0);
+      &:hover{
+        transform: scale(1.05);
+        transition: all ease-in-out 0.3s;
+      }
     }
   }
+
 }

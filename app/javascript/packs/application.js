@@ -9,6 +9,7 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require jquery.overlayScrollbars
+//= require humanize-string
 
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"

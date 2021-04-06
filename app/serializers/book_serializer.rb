@@ -9,4 +9,8 @@ class BookSerializer
   attribute :authors do |object|
     object.authors.as_json
   end
+
+  attribute :description do |object, params|
+    object.description.as_json if params && params[:lone]
+  end
 end

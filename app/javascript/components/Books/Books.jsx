@@ -1,9 +1,9 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from "axios";
 import Book from "./Book";
 import './books.scss'
 
-const Books = () => {
+const Books = (props) => {
     const [books, setBooks] = useState([])
 
     useEffect(() => {

@@ -4,11 +4,11 @@ module Api
       before_action :find_book, only: %i[show destroy]
 
       def index
-        render json: BookSerializer.new(Book.all).serialized_json
+        render json: BookSerializer.new(Book.all, { params: { lone: false } }).serialized_json
       end
 
       def show
-        render json: BookSerializer.new(@book).serialized_json
+        render json: BookSerializer.new(@book, { params: { lone: true } }).serialized_json
       end
 
       def create

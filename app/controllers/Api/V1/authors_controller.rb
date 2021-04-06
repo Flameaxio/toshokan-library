@@ -8,7 +8,7 @@ module Api
       end
 
       def show
-        render json: AuthorSerializer.new(@author).serialized_json
+        render json: BooksByAuthorSerializer.new(@author).serialized_json
       end
 
       def create

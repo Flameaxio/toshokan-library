@@ -31,6 +31,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'fast_jsonapi'
 
+gem 'bcrypt'
+gem 'rack-cors', require: 'rack/cors'
+
 # For nice and slick controllers
 gem 'responders'
 

@@ -1,0 +1,31 @@
+.form-wrapper{
+  width: 100%;
+  height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  form{
+    box-sizing: border-box;
+    padding: 80px 40px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    -webkit-box-shadow: 11px 10px 87px -6px rgba(0,0,0,0.26);
+    -moz-box-shadow: 11px 10px 87px -6px rgba(0,0,0,0.26);
+    box-shadow: 11px 10px 87px -6px rgba(0,0,0,0.26);
+    background: #efefef;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    label, button{
+      margin-top: 40px;
+      &:first-child{
+        margin-top: 0;
+      }
+    }
+    h3{
+      align-self: center;
+    }
+  }
+}

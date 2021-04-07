@@ -4,7 +4,36 @@ import {Link} from "react-router-dom"
 import './header.scss'
 
 
-const Header = () => {
+const Header = (props) => {
+    let controls;
+    if(props.loggedInStatus === 'LOGGED_IN'){
+      controls = (
+          <div className="controls">
+          <div className="profile">
+              <i className="fas fa-user"/>
+              <p>My Profile</p>
+          </div>
+          <Link onClick={props.handleLogout} className="sign-out">
+              <i className="fas fa-sign-out-alt"/>
+              <p>Sign out</p>
+          </Link>
+      </div>
+      )
+    }
+    else{
+        controls = (
+            <div className="controls">
+                <Link to={'/sign_in'} className="sign-in">
+                    <i className="fas fa-sign-in-alt"/>
+                    <p>Sign in</p>
+                </Link>
+                <Link to={'/sign_up'} className="sign-up">
+                    <i className="fas fa-user-plus"/>
+                    <p>Sign up</p>
+                </Link>
+            </div>
+        )
+    }
     return (
         <header>
             <Link to={'/books'} className="logo-wrapper"><img src={logo} alt="#"/></Link>
@@ -18,7 +47,7 @@ const Header = () => {
                     </button>
                 </form>
             </div>
-            <div className="controls"></div>
+            {controls}
         </header>
     )
 }

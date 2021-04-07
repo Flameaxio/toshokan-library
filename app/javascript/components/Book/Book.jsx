@@ -4,7 +4,7 @@ import axios from "axios";
 
 import './book.scss'
 
-const Book = () => {
+const Book = (props) => {
     const [book, setBook] = useState({})
     const [loaded, setLoaded] = useState(false)
     const slug = useParams().slug;
@@ -40,6 +40,23 @@ const Book = () => {
             return <Link key={item.slug} to={`/authors/${item.slug}`}>{text}</Link>
         })
     }
+
+    const handleClick = () => {
+        if(props.loggedInStatus === 'LOGGED_IN'){
+            // TODO
+        }else{
+            props.history.push('/sign_in')
+        }
+    }
+
+    let button;
+    if(props.loggedInStatus === 'LOGGED_IN'){
+        button = (<button onClick={handleClick} className={'btn btn-success'}>Buy</button>)
+    }
+    else{
+        button = (<button style={{fontSize: 24+'px'}} onClick={handleClick} className={'btn btn-success'}>Sign in</button>)
+    }
+
     return (
         <>
             <div className="top">
@@ -53,7 +70,7 @@ const Book = () => {
                     <div className="description">{book.description}</div>
                 </div>
                 <div className="buy">
-                    <button className={'btn btn-success'}>Buy</button>
+                    {button}
                 </div>
             </div>
             <div className="main-wrapper">

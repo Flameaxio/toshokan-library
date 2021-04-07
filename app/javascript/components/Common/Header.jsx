@@ -13,10 +13,10 @@ const Header = (props) => {
               <i className="fas fa-user"/>
               <p>My Profile</p>
           </div>
-          <Link onClick={props.handleLogout} className="sign-out">
+          <a style={{cursor: 'pointer'}} onClick={props.handleLogout} className="sign-out">
               <i className="fas fa-sign-out-alt"/>
               <p>Sign out</p>
-          </Link>
+          </a>
       </div>
       )
     }

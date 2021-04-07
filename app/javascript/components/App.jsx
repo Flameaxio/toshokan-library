@@ -26,7 +26,6 @@ export default class App extends Component {
 
     checkLoginStatus() {
         axios.get('/api/v1/users/logged_in', {withCredentials: true}).then(response => {
-            console.log(response)
             if(response.data.logged_in && this.state.loggedInStatus === 'NOT_LOGGED_IN'){
                 this.setState({
                     loggedInStatus: 'LOGGED_IN',
@@ -61,7 +60,7 @@ export default class App extends Component {
 
     handleSuccessfulAuth(data) {
         this.handleLogin(data);
-        this.props.history.push('/');
+        this.props.history.go(-1);
     }
 
     handleLogin(data) {
@@ -77,11 +76,21 @@ export default class App extends Component {
                 <Header loggedInStatus={this.state.loggedInStatus} handleLogout={this.handleLogout}/>
                 <main>
                     <Switch>
-                        <Route exact path='/' component={Books}/>
-                        <Route exact path='/books' component={Books}/>
-                        <Route exact path='/books/:slug' component={Book}/>
-                        <Route exact path='/genres/:slug' component={Genres}/>
-                        <Route exact path='/authors/:slug' component={Authors}/>
+                        <Route exact path='/' render={props => (
+                            <Books {...props} loggedInStatus={this.state.loggedInStatus}/>
+                        )}/>
+                        <Route exact path='/books' render={props => (
+                            <Books {...props} loggedInStatus={this.state.loggedInStatus}/>
+                        )}/>
+                        <Route exact path='/books/:slug' render={props => (
+                            <Book {...props} loggedInStatus={this.state.loggedInStatus}/>
+                        )}/>
+                        <Route exact path='/genres/:slug' render={props => (
+                            <Genres {...props} loggedInStatus={this.state.loggedInStatus}/>
+                        )}/>
+                        <Route exact path='/authors/:slug' render={props => (
+                            <Authors {...props} loggedInStatus={this.state.loggedInStatus}/>
+                        )}/>
                         <Route exact path='/sign_up' render={props => (
                             <SignUp {...props} handleSuccessfulAuth={this.handleSuccessfulAuth}/>
                         )}/>

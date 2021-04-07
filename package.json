@@ -10,6 +10,7 @@
     "@rails/webpacker": "5.2.1",
     "axios": "^0.21.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "bootstrap": "^4.6.0",
     "humanize-string": "^2.1.0",
     "jquery": "^3.6.0",
     "prop-types": "^15.7.2",
@@ -20,6 +21,8 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "sass": "^1.32.8",
+    "sass-loader": "^8.0.2",
     "webpack": "^4.46.0"
   }
 }

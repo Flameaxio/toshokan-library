@@ -84,8 +84,11 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    innertube (1.1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    joiner (0.6.0)
+      activerecord (>= 6.1.0)
     jquery-rails (4.4.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -100,9 +103,11 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.0)
     method_source (1.0.0)
+    middleware (0.1.0)
     mini_mime (1.0.3)
     minitest (5.14.4)
     msgpack (1.4.2)
+    mysql2 (0.5.3)
     nio4r (2.5.7)
     nokogiri (1.11.2-x86_64-linux)
       racc (~> 1.4)
@@ -158,6 +163,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    riddle (2.4.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -177,6 +183,13 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    thinking-sphinx (5.1.0)
+      activerecord (>= 4.2.0)
+      builder (>= 2.1.2)
+      innertube (>= 1.0.2)
+      joiner (>= 0.3.4)
+      middleware (>= 0.1.0)
+      riddle (~> 2.3)
     thor (1.1.0)
     tilt (2.0.10)
     tzinfo (2.0.4)
@@ -206,8 +219,10 @@ DEPENDENCIES
   byebug
   fast_jsonapi
   jbuilder (~> 2.7)
+  jdbc-mysql (~> 5.1.35)
   jquery-rails
   listen (~> 3.3)
+  mysql2 (~> 0.4)
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)
@@ -217,6 +232,7 @@ DEPENDENCIES
   responders
   sass-rails (>= 6)
   spring
+  thinking-sphinx (~> 5.1)
   tzinfo-data
   web-console (>= 4.1.0)
   webpacker (~> 5.0)

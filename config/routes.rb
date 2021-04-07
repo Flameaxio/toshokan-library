@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       resources :books, only: %i[index show create destroy], param: :slug
       resources :authors, only: %i[index show create destroy], param: :slug
       resources :genres, only: %i[index show create destroy], param: :slug
+      resource :searches, except: %i[new create edit update destroy] do
+        get :types
+      end
       namespace :users do
         resources :sessions, only: %i[create]
         resources :registrations, only: %i[create]

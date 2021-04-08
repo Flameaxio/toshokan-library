@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import logo from 'images/logo_transparent.png'
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 import './header.scss'
 import './header'
 import axios from "axios";
@@ -9,6 +9,7 @@ import axios from "axios";
 const Header = (props) => {
     let controls;
     const [query, setQuery] = useState('')
+    let history = useHistory();
 
     if (props.loggedInStatus === 'LOGGED_IN') {
         controls = (
@@ -60,9 +61,22 @@ const Header = (props) => {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        handleChange(e);
-        props.history.push('/');
+        const str = props.currentLocation
+        const n = str.lastIndexOf('/');
+        const value = str.substring(n + 1);
+        let search_type = str.substring(1, n);
+        history.push('/')
+        axios.get(`/api/v1/searches/search`,{
+            params: {search_type: search_type,
+                query: query,
+                value: value
+            }}).then((response) =>{
+            props.updateBooks(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
     }
+
 
     return (
         <header>

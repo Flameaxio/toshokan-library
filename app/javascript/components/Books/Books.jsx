@@ -13,7 +13,7 @@ const Books = (props) => {
     useEffect(() => {
         axios.get('/api/v1/books.json')
             .then((resp) => {
-                if (books.length === 0) {
+                if (books.length === 0 && $('#search-field').val() === '') {
                     setBooks(resp.data.data)
                 }
             })

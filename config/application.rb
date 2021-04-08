@@ -19,6 +19,16 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+module Rails
+  def self.rake?
+    !!@rake
+  end
+
+  def self.rake=(value)
+    @rake = !!value
+  end
+end
+
 module ToshokanLibrary
   class Application < Rails::Application
     # Use the responders controller from the responders gem

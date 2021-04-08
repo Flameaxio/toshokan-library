@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :genres, only: %i[index show create destroy], param: :slug
       resource :searches, except: %i[new create edit update destroy] do
         get :types
+        get :search
       end
       namespace :users do
         resources :sessions, only: %i[create]

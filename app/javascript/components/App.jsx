@@ -9,29 +9,46 @@ import SignUp from './Users/SignUp'
 import SignIn from "./Users/SignIn";
 import axios from "axios";
 
+let arraysMatch = function (arr1, arr2) {
+
+    // Check if the arrays are the same length
+    if (arr1.length !== arr2.length) return false;
+
+    // Check if all items exist and are in the same order
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+
+    // Otherwise, return true
+    return true;
+
+};
+
 export default class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             loggedInStatus: 'NOT_LOGGED_IN',
-            user: {}
+            user: {},
+            books: []
         }
 
         this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
         this.handleLogin = this.handleLogin.bind(this)
         this.checkLoginStatus = this.checkLoginStatus.bind(this)
         this.handleLogout = this.handleLogout.bind(this)
+        this.updateBooks = this.updateBooks.bind(this)
     }
 
     checkLoginStatus() {
         axios.get('/api/v1/users/logged_in', {withCredentials: true}).then(response => {
-            if(response.data.logged_in && this.state.loggedInStatus === 'NOT_LOGGED_IN'){
+            if (response.data.logged_in && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
                 this.setState({
                     loggedInStatus: 'LOGGED_IN',
                     user: response.data.user
                 })
-            } else if(!response.data.logged_in && this.state.loggedInStatus === 'LOGGED_IN'){
+            } else if (!response.data.logged_in && this.state.loggedInStatus === 'LOGGED_IN') {
                 this.setState({
                     loggedInStatus: 'NOT_LOGGED_IN',
                     user: {}
@@ -46,7 +63,7 @@ export default class App extends Component {
         this.checkLoginStatus();
     }
 
-    handleLogout(){
+    handleLogout() {
         axios.delete('/api/v1/users/logout', {withCredentials: true}).then(() => {
             this.setState({
                 loggedInStatus: 'NOT_LOGGED_IN',
@@ -70,26 +87,38 @@ export default class App extends Component {
         })
     }
 
+    updateBooks(data) {
+        if (!arraysMatch(this.state.books, data.data)) {
+            this.setState({
+                loggedInStatus: this.state.loggedInStatus,
+                user: this.state.user,
+                books: data.data
+            })
+        }
+    }
+
+
     render() {
         return (
             <>
-                <Header loggedInStatus={this.state.loggedInStatus} handleLogout={this.handleLogout}/>
+                <Header updateBooks={this.updateBooks} currentLocation={this.props.location.pathname}
+                        loggedInStatus={this.state.loggedInStatus} handleLogout={this.handleLogout}/>
                 <main>
                     <Switch>
                         <Route exact path='/' render={props => (
-                            <Books {...props} loggedInStatus={this.state.loggedInStatus}/>
+                            <Books {...props} books={this.state.books} loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/books' render={props => (
-                            <Books {...props} loggedInStatus={this.state.loggedInStatus}/>
+                            <Books {...props} books={this.state.books} loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/books/:slug' render={props => (
                             <Book {...props} loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/genres/:slug' render={props => (
-                            <Genres {...props} loggedInStatus={this.state.loggedInStatus}/>
+                            <Genres {...props} books={this.state.books} loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/authors/:slug' render={props => (
-                            <Authors {...props} loggedInStatus={this.state.loggedInStatus}/>
+                            <Authors {...props} books={this.state.books} loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/sign_up' render={props => (
                             <SignUp {...props} handleSuccessfulAuth={this.handleSuccessfulAuth}/>

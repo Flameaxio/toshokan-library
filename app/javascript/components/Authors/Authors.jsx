@@ -3,22 +3,31 @@ import axios from "axios";
 import Book from "../Books/Book";
 import {useParams} from "react-router-dom";
 import '../Books/books.scss'
+
 const humanizeString = require('humanize-string');
 
-const Authors = () =>{
+const Authors = (props) => {
     const slug = useParams().slug
     let words = humanizeString(slug).split(" ");
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i][0].toUpperCase() + words[i].substr(1);
     }
     const name = words.join(' ')
-    const [books, setBooks] = useState([])
+    const [books, setBooks] = useState(this.props.books)
     const [author, setAuthor] = useState(name)
     const [loaded, setLoaded] = useState(false)
+
+
+    useEffect(() => {
+        setBooks(props.books)
+    }, [props.books])
+
     useEffect(() => {
         axios.get(`/api/v1/authors/${slug}`)
             .then((resp) => {
-                setBooks(resp.data.data.attributes.books.data)
+                if (books.length === 0) {
+                    setBooks(resp.data.data.attributes.books.data)
+                }
                 setAuthor(resp.data.data.attributes.name)
                 setLoaded(true)
             })

@@ -3,17 +3,25 @@ import axios from "axios";
 import Book from "../Books/Book";
 import {Link, useParams} from "react-router-dom";
 import '../Books/books.scss'
+
 const humanizeString = require('humanize-string');
 
-const Genres = () => {
+const Genres = (props) => {
     const slug = useParams().slug
-    const [books, setBooks] = useState([])
+    const [books, setBooks] = useState(props.books)
     const [genre, setGenre] = useState(humanizeString(slug))
     const [loaded, setLoaded] = useState(false)
+
+    useEffect(() => {
+        setBooks(props.books)
+    }, [props.books])
+
     useEffect(() => {
         axios.get(`/api/v1/genres/${slug}`)
             .then((resp) => {
-                setBooks(resp.data.data.attributes.books.data)
+                if (props.books.length !== 0) {
+                    setBooks(resp.data.data.attributes.books.data)
+                }
                 setGenre(resp.data.data.attributes.name)
                 setLoaded(true)
             })

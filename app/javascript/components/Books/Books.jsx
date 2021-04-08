@@ -7,9 +7,15 @@ const Books = (props) => {
     const [books, setBooks] = useState([])
 
     useEffect(() => {
+        setBooks(props.books)
+    }, [props.books])
+
+    useEffect(() => {
         axios.get('/api/v1/books.json')
             .then((resp) => {
-                setBooks(resp.data.data)
+                if (books.length === 0) {
+                    setBooks(resp.data.data)
+                }
             })
             .catch((resp) => {
                 console.log('Something went wrong...')
@@ -29,7 +35,7 @@ const Books = (props) => {
         <div className={'catalogue'}>
             <h1>Catalogue: </h1>
             <div className="grid">
-                    {grid}
+                {grid}
             </div>
         </div>
     )

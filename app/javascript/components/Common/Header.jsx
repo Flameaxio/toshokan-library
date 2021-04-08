@@ -8,16 +8,7 @@ import axios from "axios";
 
 const Header = (props) => {
     let controls;
-    const [searchTypes, setSearchTypes] = useState(['Books'])
-    const [searchType, setSearchType] = useState(searchTypes.first)
-
-    useEffect(() => {
-        axios.get('/api/v1/searches/types').then((response) => {
-            setSearchTypes(response.data)
-        }).catch(error => {
-            console.log(error)
-        })
-    }, [searchTypes.length])
+    const [query, setQuery] = useState('')
 
     if (props.loggedInStatus === 'LOGGED_IN') {
         controls = (
@@ -47,17 +38,31 @@ const Header = (props) => {
         )
     }
 
-    let dropdownMenu = searchTypes.map((item, index) => {
-        if (index === 0) {
-            return (
-                <button key={item} className="dropdown-item active" type="button">{item}</button>
-            )
-        } else {
-            return (
-                <button key={item} className="dropdown-item" type="button">{item}</button>
-            )
-        }
-    })
+    const handleChange = (e) =>{
+        const str = props.currentLocation
+        const n = str.lastIndexOf('/');
+        const value = str.substring(n + 1);
+        let search_type = str.substring(1, n);
+        if(search_type === '/')
+            search_type = 'Book'
+        const query = e.target.value
+        setQuery(query)
+        axios.get(`/api/v1/searches/search`,{
+            params: {search_type: search_type,
+                query: query,
+                value: value
+            }}).then((response) =>{
+            props.updateBooks(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        handleChange(e);
+        props.history.push('/');
+    }
 
     return (
         <header>
@@ -65,17 +70,9 @@ const Header = (props) => {
             <div className="search-form">
                 <form>
                     <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <button className="btn btn-outline-secondary dropdown-toggle" type="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{searchType}
-                            </button>
-                            <div className="dropdown-menu">
-                                {dropdownMenu}
-                            </div>
-                        </div>
-                        <input type="text" className="form-control" aria-label="Text input with dropdown button"/>
+                        <input id={'search-field'} value={query} onChange={handleChange} type="text" className="form-control" aria-label="Text input with dropdown button"/>
                         <div className="input-group-append">
-                            <button type={"submit"} className="btn btn-outline-secondary"><i className="fas fa-search"/></button>
+                            <button onClick={handleSubmit} type={"submit"} className="btn btn-outline-secondary"><i className="fas fa-search"/></button>
                         </div>
                     </div>
                 </form>

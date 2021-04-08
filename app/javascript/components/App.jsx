@@ -8,6 +8,7 @@ import Authors from "./Authors/Authors";
 import SignUp from './Users/SignUp'
 import SignIn from "./Users/SignIn";
 import axios from "axios";
+import Profile from "./Users/Profile";
 
 let arraysMatch = function (arr1, arr2) {
 
@@ -99,10 +100,17 @@ export default class App extends Component {
 
 
     render() {
+        let profile;
+        if (this.state.loggedInStatus === 'LOGGED_IN') {
+            profile = <Route exact path={'/profile'} render={props => (
+                <Profile {...props} user={this.state.user} books={this.state.books}/>
+            )}/>
+        }
         return (
             <>
                 <Header updateBooks={this.updateBooks} currentLocation={this.props.location.pathname}
-                        loggedInStatus={this.state.loggedInStatus} handleLogout={this.handleLogout}/>
+                        loggedInStatus={this.state.loggedInStatus} handleLogout={this.handleLogout}
+                        user={this.state.user}/>
                 <main>
                     <Switch>
                         <Route exact path='/' render={props => (
@@ -126,6 +134,7 @@ export default class App extends Component {
                         <Route exact path='/sign_in' render={props => (
                             <SignIn {...props} handleSuccessfulAuth={this.handleSuccessfulAuth}/>
                         )}/>
+                        {profile}
                     </Switch>
                 </main>
             </>

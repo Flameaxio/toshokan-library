@@ -14,10 +14,10 @@ const Header = (props) => {
     if (props.loggedInStatus === 'LOGGED_IN') {
         controls = (
             <div className="controls">
-                <div className="profile">
+                <Link to={'/profile'} className="profile">
                     <i className="fas fa-user"/>
                     <p>My Profile</p>
-                </div>
+                </Link>
                 <a style={{cursor: 'pointer'}} onClick={props.handleLogout} className="sign-out">
                     <i className="fas fa-sign-out-alt"/>
                     <p>Sign out</p>
@@ -39,38 +39,45 @@ const Header = (props) => {
         )
     }
 
-    const handleChange = (e) =>{
+    const handleChange = (e) => {
         const str = props.currentLocation
         const n = str.lastIndexOf('/');
         const value = str.substring(n + 1);
         let search_type = str.substring(1, n);
-        if(search_type === '/')
+        if (str.includes('profile'))
+            search_type = 'Profile'
+        else if (search_type === '/') {
             search_type = 'Book'
+        }
         const query = e.target.value
         setQuery(query)
-        axios.get(`/api/v1/searches/search`,{
-            params: {search_type: search_type,
+        axios.get(`/api/v1/searches/search`, {
+            params: {
+                search_type: search_type,
                 query: query,
-                value: value
-            }}).then((response) =>{
+                value: value,
+            }
+        }).then((response) => {
             props.updateBooks(response.data)
         }).catch((error) => {
             console.log(error)
         })
     }
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
         const str = props.currentLocation
         const n = str.lastIndexOf('/');
         const value = str.substring(n + 1);
         let search_type = str.substring(1, n);
         history.push('/')
-        axios.get(`/api/v1/searches/search`,{
-            params: {search_type: search_type,
+        axios.get(`/api/v1/searches/search`, {
+            params: {
+                search_type: search_type,
                 query: query,
                 value: value
-            }}).then((response) =>{
+            }
+        }).then((response) => {
             props.updateBooks(response.data)
         }).catch((error) => {
             console.log(error)
@@ -84,9 +91,11 @@ const Header = (props) => {
             <div className="search-form">
                 <form>
                     <div className="input-group mb-3">
-                        <input id={'search-field'} value={query} onChange={handleChange} type="text" className="form-control" aria-label="Text input with dropdown button"/>
+                        <input id={'search-field'} value={query} onChange={handleChange} type="text"
+                               className="form-control" aria-label="Text input with dropdown button"/>
                         <div className="input-group-append">
-                            <button onClick={handleSubmit} type={"submit"} className="btn btn-outline-secondary"><i className="fas fa-search"/></button>
+                            <button onClick={handleSubmit} type={"submit"} className="btn btn-outline-secondary"><i
+                                className="fas fa-search"/></button>
                         </div>
                     </div>
                 </form>

@@ -13,7 +13,7 @@ const Authors = (props) => {
         words[i] = words[i][0].toUpperCase() + words[i].substr(1);
     }
     const name = words.join(' ')
-    const [books, setBooks] = useState(this.props.books)
+    const [books, setBooks] = useState(props.books)
     const [author, setAuthor] = useState(name)
     const [loaded, setLoaded] = useState(false)
 
@@ -25,7 +25,7 @@ const Authors = (props) => {
     useEffect(() => {
         axios.get(`/api/v1/authors/${slug}`)
             .then((resp) => {
-                if (books.length === 0) {
+                if (books.length === 0 && $('#search-field').val() === '') {
                     setBooks(resp.data.data.attributes.books.data)
                 }
                 setAuthor(resp.data.data.attributes.name)

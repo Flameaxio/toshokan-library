@@ -67,7 +67,6 @@ const Book = (props) => {
 
     let button;
     if(props.loggedInStatus === 'LOGGED_IN'){
-        console.log(ownership)
         button = (<button disabled={ownership} onClick={handleClick} className={'btn btn-success'}>{ownership ? 'Owned' : 'Buy'}</button>)
     }
     else{

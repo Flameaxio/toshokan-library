@@ -5,7 +5,9 @@ module Api
       before_action :find_book, only: %i[show destroy buy check_ownership]
 
       def index
-        render json: BookSerializer.new(Book.all, { params: { lone: false } }).serialized_json
+        books = Book.all
+        books = current_user.books if params[:user_id]
+        render json: BookSerializer.new(books, { params: { lone: false } }).serialized_json
       end
 
       def show

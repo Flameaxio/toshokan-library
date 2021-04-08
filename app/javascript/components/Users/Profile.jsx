@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import Book from "../Books/Book";
-import {Link, useParams} from "react-router-dom";
 import '../Books/books.scss'
 
-const humanizeString = require('humanize-string');
-
-const Genres = (props) => {
-    const slug = useParams().slug
+const Profile = (props) => {
     const [books, setBooks] = useState(props.books)
-    const [genre, setGenre] = useState(humanizeString(slug))
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
@@ -17,12 +12,13 @@ const Genres = (props) => {
     }, [props.books])
 
     useEffect(() => {
-        axios.get(`/api/v1/genres/${slug}`)
+        axios.get(`/api/v1/books/`, {
+            params: {user_id: props.user.id}
+        })
             .then((resp) => {
                 if (books.length === 0 && $('#search-field').val() === '') {
-                    setBooks(resp.data.data.attributes.books.data)
+                    setBooks(resp.data.data)
                 }
-                setGenre(resp.data.data.attributes.name)
                 setLoaded(true)
             })
             .catch((resp) => {
@@ -43,7 +39,7 @@ const Genres = (props) => {
 
     return (
         <div className={'catalogue'}>
-            <h1>{genre}:</h1>
+            <h1>My books:</h1>
             <div className="grid">
                 {grid}
             </div>
@@ -51,4 +47,4 @@ const Genres = (props) => {
     )
 }
 
-export default Genres
+export default Profile

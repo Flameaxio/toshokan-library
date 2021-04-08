@@ -41,13 +41,13 @@ ActiveRecord::Schema.define(version: 2021_04_08_120306) do
     t.index ["genre_id"], name: "index_book_genre_relationships_on_genre_id"
   end
 
-  create_table "book_ownership", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "book_id"
+  create_table "book_ownerships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_book_ownership_on_book_id"
-    t.index ["user_id"], name: "index_book_ownership_on_user_id"
+    t.index ["book_id"], name: "index_book_ownerships_on_book_id"
+    t.index ["user_id"], name: "index_book_ownerships_on_user_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -79,4 +79,6 @@ ActiveRecord::Schema.define(version: 2021_04_08_120306) do
   add_foreign_key "book_author_relationships", "books"
   add_foreign_key "book_genre_relationships", "books"
   add_foreign_key "book_genre_relationships", "genres"
+  add_foreign_key "book_ownerships", "books"
+  add_foreign_key "book_ownerships", "users"
 end

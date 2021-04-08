@@ -3,7 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :books, only: %i[index show create destroy], param: :slug
+      resources :books, only: %i[index show create destroy], param: :slug do
+        post :buy
+        get :check_ownership
+      end
       resources :authors, only: %i[index show create destroy], param: :slug
       resources :genres, only: %i[index show create destroy], param: :slug
       resource :searches, except: %i[new create edit update destroy] do

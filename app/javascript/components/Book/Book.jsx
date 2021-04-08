@@ -5,14 +5,25 @@ import axios from "axios";
 import './book.scss'
 
 const Book = (props) => {
+    const checkOwnership = (book_slug) => {
+        axios.get(`/api/v1/books/${book_slug}/check_ownership`, { params: {
+            slug: slug
+            } }).then((response)=>{
+            setOwnership(response.data.ownership === 'YES')
+        }).catch(()=>{
+            setOwnership(false)
+        })
+    }
+
     const [book, setBook] = useState({})
     const [loaded, setLoaded] = useState(false)
     const slug = useParams().slug;
-
+    const [ownership, setOwnership] = useState(false)
     useEffect(() => {
         axios.get(`/api/v1/books/${slug}`)
             .then((resp) => {
                 setBook(resp.data.data.attributes)
+                checkOwnership(slug)
                 setLoaded(true)
             })
             .catch((resp) => {
@@ -22,6 +33,7 @@ const Book = (props) => {
     }, [loaded])
 
     let authors, genres;
+
 
     if (loaded) {
         genres = book.genres.map((item, i) => {
@@ -43,7 +55,11 @@ const Book = (props) => {
 
     const handleClick = () => {
         if(props.loggedInStatus === 'LOGGED_IN'){
-            // TODO
+            axios.post(`/api/v1/books/${slug}/buy`, { slug: slug }).then((response) => {
+                if(''+response.data.status === ''+200){
+                    setOwnership(true)
+                }
+                })
         }else{
             props.history.push('/sign_in')
         }
@@ -51,7 +67,8 @@ const Book = (props) => {
 
     let button;
     if(props.loggedInStatus === 'LOGGED_IN'){
-        button = (<button onClick={handleClick} className={'btn btn-success'}>Buy</button>)
+        console.log(ownership)
+        button = (<button disabled={ownership} onClick={handleClick} className={'btn btn-success'}>{ownership ? 'Owned' : 'Buy'}</button>)
     }
     else{
         button = (<button style={{fontSize: 24+'px'}} onClick={handleClick} className={'btn btn-success'}>Sign in</button>)

@@ -1,7 +1,8 @@
 module Api
   module V1
     class BooksController < ApiController
-      before_action :find_book, only: %i[show destroy]
+      include CurrentUserConcern
+      before_action :find_book, only: %i[show destroy buy check_ownership]
 
       def index
         render json: BookSerializer.new(Book.all, { params: { lone: false } }).serialized_json
@@ -18,6 +19,33 @@ module Api
 
       def destroy
         render json: BookSerializer.new(@book.destroy).serialized_json
+      end
+
+      def buy
+        current_user.books << @book
+        if current_user.save
+          render json: {
+            status: 200
+          }
+        else
+          render json: {
+            status: 500
+          }
+        end
+      end
+
+      def check_ownership
+        if current_user.books.include?(@book)
+          render json: {
+            status: 200,
+            ownership: 'YES'
+          }
+        else
+          render json: {
+            status: 200,
+            ownership: 'NO'
+          }
+        end
       end
 
       private

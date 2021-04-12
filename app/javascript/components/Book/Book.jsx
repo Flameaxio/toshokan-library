@@ -19,6 +19,7 @@ const Book = (props) => {
     const [loaded, setLoaded] = useState(false)
     const slug = useParams().slug;
     const [ownership, setOwnership] = useState(false)
+    const [message, setMessage] = useState('')
     useEffect(() => {
         axios.get(`/api/v1/books/${slug}`)
             .then((resp) => {
@@ -56,9 +57,13 @@ const Book = (props) => {
     const handleClick = () => {
         if(props.loggedInStatus === 'LOGGED_IN'){
             axios.post(`/api/v1/books/${slug}/buy`, { slug: slug }).then((response) => {
+                let style = {color: 'red'}
                 if(''+response.data.status === ''+200){
                     setOwnership(true)
+                    style = {color: 'green'}
                 }
+                let mes = <span style={style}>{response.data.message}</span>
+                setMessage(mes)
                 })
         }else{
             props.history.push('/sign_in')
@@ -86,6 +91,7 @@ const Book = (props) => {
                     <div className="description">{book.description}</div>
                 </div>
                 <div className="buy">
+                    {message}
                     {button}
                 </div>
             </div>

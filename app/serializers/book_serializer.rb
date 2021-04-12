@@ -6,6 +6,7 @@ class BookSerializer
     object.genres.as_json
   end
 
+
   attribute :authors do |object|
     object.authors.as_json
   end

@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import Book from "../Books/Book";
 import '../Books/books.scss'
+import './profile.scss'
+import Subscription from "./Subscription";
 
 const Profile = (props) => {
     const [books, setBooks] = useState(props.books)
@@ -38,10 +40,15 @@ const Profile = (props) => {
     }
 
     return (
-        <div className={'catalogue'}>
-            <h1>My books:</h1>
-            <div className="grid">
-                {grid}
+        <div className={'catalogue profile-catalogue'}>
+            <div className="grid-wrapper">
+                <h1>My books:</h1>
+                <div className="grid profile-grid">
+                    {grid}
+                </div>
+            </div>
+            <div className="subscription-wrapper">
+                <Subscription user={props.user}/>
             </div>
         </div>
     )

@@ -9,6 +9,7 @@ import SignUp from './Users/SignUp'
 import SignIn from "./Users/SignIn";
 import axios from "axios";
 import Profile from "./Users/Profile";
+import Subscriptions from "./Subscriptions/Subscriptions";
 
 let arraysMatch = function (arr1, arr2) {
 
@@ -133,6 +134,9 @@ export default class App extends Component {
                         )}/>
                         <Route exact path='/sign_in' render={props => (
                             <SignIn {...props} handleSuccessfulAuth={this.handleSuccessfulAuth}/>
+                        )}/>
+                        <Route exact path='/subscriptions' render={props => (
+                            <Subscriptions {...props} />
                         )}/>
                         {profile}
                     </Switch>

@@ -18,7 +18,10 @@ Rails.application.routes.draw do
         resources :registrations, only: %i[create]
         delete :logout, to: 'sessions#logout'
         get :logged_in, to: 'sessions#logged_in'
+        get :subscription, to: 'sessions#subscription'
       end
+      resources :subscriptions, only: %i[index]
+      post :subscribe, to: 'subscriptions#subscribe'
     end
   end
 

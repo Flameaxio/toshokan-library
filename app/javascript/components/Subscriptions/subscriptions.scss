@@ -1,0 +1,17 @@
+.subscriptions{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buy-subscription{
+  margin-top: 40%;
+  font-size: 48px;
+  &:disabled{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
+}

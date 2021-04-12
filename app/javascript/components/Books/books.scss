@@ -29,6 +29,12 @@
         }
       }
 
+      p {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
       .book-authors p a, .book-genres p a, .book-name a{
         text-decoration: none;
         color: inherit;

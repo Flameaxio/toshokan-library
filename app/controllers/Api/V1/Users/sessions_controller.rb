@@ -25,7 +25,7 @@ module Api
           if current_user
             render json: {
               logged_in: true,
-              user: current_user
+              user: current_user.as_json.merge({ subscription: SubscriptionSerializer.new(current_user.subscription).serialized_json })
             }
           else
             render json: {
@@ -37,6 +37,10 @@ module Api
         def logout
           reset_session
           render json: { status: 200, logged_out: true }
+        end
+
+        def subscription
+          render json: SubscriptionSerializer.new(current_user.subscription, { params: { current_user: current_user } })
         end
       end
     end

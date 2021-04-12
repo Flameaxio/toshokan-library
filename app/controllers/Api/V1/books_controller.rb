@@ -24,14 +24,24 @@ module Api
       end
 
       def buy
-        current_user.books << @book
-        if current_user.save
-          render json: {
-            status: 200
-          }
+        if current_user.check_limit
+          current_user.books << @book
+          current_user.books_bought += 1
+          if current_user.save
+            render json: {
+              message: 'Success!',
+              status: 200
+            }
+          else
+            render json: {
+              message: 'Unknown error!',
+              status: 500
+            }
+          end
         else
           render json: {
-            status: 500
+            message: 'Limit reached!',
+            status: 401
           }
         end
       end

@@ -42,6 +42,10 @@ gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
 gem 'thinking-sphinx', '~> 5.1'
 
 gem 'money'
+gem 'will_paginate'
+gem 'haml'
+
+gem "chartkick"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

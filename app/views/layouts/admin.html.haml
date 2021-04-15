@@ -1,0 +1,63 @@
+!!! 5
+%html
+  %head
+    %title ToshokanLibrary | ADMIN
+    %meta(name="viewport" content="width=device-width,initial-scale=1")
+    = csrf_meta_tags
+    = csp_meta_tag
+    = favicon_link_tag asset_path('favicon.png')
+
+    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag 'material-dashboard.min'
+    = stylesheet_link_tag 'material-dashboard-rtl'
+    = stylesheet_link_tag 'books'
+    = javascript_pack_tag 'application'
+    = javascript_pack_tag 'index'
+
+  %body
+    .wrapper
+      .sidebar{"data-background-color" => "white", "data-color" => "purple"}
+        .logo
+          = image_tag('logo_transparent.png')
+        .sidebar-wrapper
+          %ul.nav
+            %li.nav-item.active
+              %a.nav-link.wrapper
+      .sidebar{"data-background-color" => "white", "data-color" => "purple"}
+        .logo
+          = image_tag('logo_transparent.png')
+        .sidebar-wrapper
+          %ul.nav
+            %li.nav-item.dashboard-link
+              %i.material-icons
+              %a.nav-link(href="/") Dashboard
+            %li.nav-item.books-link
+              %a.nav-link(href='/books')
+                %i.material-icons
+                Books
+            %li.nav-item.users-link
+              %a.nav-link
+                %i.material-icons
+                Users
+            %li.nav-item.users-link
+              %a.nav-link(href='/import')
+                %i.material-icons
+                Import CSV
+            %li.nav-item.users-link
+              %a.nav-link(href="#{new_book_path}" style="background: #5cb85c")
+                %i.material-icons
+                New book
+      .main-panel
+        .content
+          .container-fluid.main-content
+            = yield
+
+:javascript
+  $(document).ready(()=>{
+    const str = window.location.href
+    const n = str.lastIndexOf('/');
+    let result = str.substring(n + 1);
+    if(result === '')
+      result = 'dashboard'
+    $(`.${result}-link`).addClass('active');
+  })

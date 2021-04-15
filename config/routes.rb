@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root 'pages#index'
+  constraints subdomain: '' do
+    root 'pages#index'
+  end
 
   namespace :api do
     namespace :v1 do
@@ -23,6 +25,15 @@ Rails.application.routes.draw do
       resources :subscriptions, only: %i[index]
       post :subscribe, to: 'subscriptions#subscribe'
     end
+  end
+
+  constraints subdomain: 'admin' do
+    get '/', to: 'dashboard#dashboard'
+    get '/books', to: 'dashboard#books'
+    post '/search', to: 'dashboard#search'
+    get '/import', to: 'import#index'
+    post '/import', to: 'import#create'
+    resources :books, except: %i[show index]
   end
 
   get '*path', to: 'pages#index', via: :all

@@ -84,7 +84,7 @@ const Book = (props) => {
                 <div className="cover">
                     <img src={book.image_url} alt=""/>
                     <div className="genres">Genres: {genres}</div>
-                    <div className="authors">Genres: {authors}</div>
+                    <div className="authors">Authors: {authors}</div>
                 </div>
                 <div className="about">
                     <h1 className="title">{book.name}</h1>

@@ -26,8 +26,10 @@ header{
       display: flex;
       flex-direction: row;
       .btn-outline-secondary{
+        height: 38px;
         color: black;
         background: #fff;
+        margin: -1px 0 0;
       }
       .dropdown-toggle{
         color: black;

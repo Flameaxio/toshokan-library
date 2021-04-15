@@ -43,7 +43,10 @@ module Api
         else
           books = search_result
         end
-        render json: BookSerializer.new(books, { params: { lone: false } }).serialized_json
+        ids = books.collect(&:id)
+        @books = Book.where(id: ids).order('books.created_at ASC').paginate(page: params[:page], per_page: 30)
+
+        render json: BookSerializer.new(@books, { params: { lone: false } }).as_json.merge({ page: @books.current_page, pages: @books.total_pages })
       end
     end
   end

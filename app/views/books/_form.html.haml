@@ -1,0 +1,31 @@
+= form_for book do |f|
+  = render 'common/error', resource: book
+
+  .field
+    = f.label :image_url
+    = f.text_field :image_url, class: 'form-control'
+
+  .field
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+
+  .field
+    .select
+      %label(for="book[genre_names]") Genres
+      %br
+      = select_tag "book[genre_names]", options_from_collection_for_select(Genre.all, "name", "name", book.genres.pluck(:name)), multiple: true, include_blank: true, class: 'select2 form-control'
+
+  .field
+    .select
+      %label(for="book[author_names]") Author
+      %br
+      = select_tag "book[author_names]", options_from_collection_for_select(Author.all, "name", "name", book.authors.pluck(:name)), multiple: true, include_blank: true, class: 'select2 form-control'
+
+  .field
+    = f.label :description
+    = f.text_area :description, class: 'form-control description'
+
+  .actions
+    = f.submit 'Save', class: 'btn btn-success'
+
+

@@ -15,12 +15,24 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "@fortawesome/fontawesome-free/css/all"
+require("chartkick/chart.js")
+require("popper.js")
 require('bootstrap')
+import $ from 'jquery'
+require('select2')
+require('select2/dist/css/select2.css')
+import 'select2/dist/css/select2.css';
+import 'select2';
+import 'semantic-ui-css/semantic.min.css'
+require('semantic-ui-react')
+require('semantic-ui-css')
 
 
 Rails.start()
 ActiveStorage.start()
 
-$(function() {
-    //The passed argument has to be at least a empty object or a object with your desired options
-});
+$(document).ready(()=>{
+    $('.select2').select2({
+        tags: true
+    });
+})

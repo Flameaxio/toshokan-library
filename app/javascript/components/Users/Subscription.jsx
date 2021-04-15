@@ -8,7 +8,6 @@ const Subscription = () =>{
 
     useEffect(() => {
         axios.get('/api/v1/users/subscription/').then(resp => {
-            console.log(resp.data.data.attributes)
             setSubscription(resp.data.data.attributes)
             setLoaded(true)
         }).catch(error => {

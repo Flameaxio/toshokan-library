@@ -1,0 +1,13 @@
+.dashboard-main
+  .piechart
+    %p Books by genre
+    = pie_chart @books_by_genre
+  .piechart
+    %p Books by author
+    = pie_chart @books_by_author
+  .piechart
+    %p Sales by genre
+    = pie_chart @sales_by_genre
+  .piechart
+    %p Sales by author
+    = pie_chart @sales_by_author

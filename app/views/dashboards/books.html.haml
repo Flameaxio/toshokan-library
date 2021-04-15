@@ -1,0 +1,35 @@
+.books-main
+  .search-form
+    = form_tag search_path, {:subdomain=>'admin'} do
+      %div.input-group.mb-3
+        = text_field_tag :query, '', id: 'search-field', class: 'form-control'
+        .input-group-append
+          %button.btn.btn-outline-secondary.admin-search-button(type="submit")
+            %i.fas.fa-search
+  .row
+  .col-12
+    %table.table.table-image
+      %thead
+        %tr
+          %th{:scope => "col"} ID
+          %th{:scope => "col"} Cover
+          %th{:scope => "col"} Book name
+          %th{:scope => "col"} Author
+          %th{:scope => "col"} Genres
+          %th{:scope => "col"} Sales
+          %th{:scope => "col"} Actions
+      %tbody
+        - @books.each do |book|
+          %tr
+            %th{:scope => "row"}= book.id
+            %td.w-25
+              %img.img-fluid.img-thumbnail{:alt => "Sheep", :src => "#{book.image_url}"}/
+            %td= book.name
+            %td= book.authors.map(&:name).join(', ')
+            %td= book.genres.map(&:name).join(', ')
+            %td= book.sales
+            %td
+              =link_to(raw('<i class="fas fa-edit"></i>'), edit_book_path(book))
+              =link_to(raw('<i class="fas fa-trash" style="color: red;"></i>'), book_path(book), method: "delete", confirm: "Are you sure?", disable_with: "Processing..." )
+
+  = will_paginate @books

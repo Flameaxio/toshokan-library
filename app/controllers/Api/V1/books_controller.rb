@@ -7,7 +7,8 @@ module Api
       def index
         books = Book.all
         books = current_user.books if params[:user_id]
-        render json: BookSerializer.new(books, { params: { lone: false } }).serialized_json
+        books = books.order('books.created_at ASC').paginate(page: params[:page], per_page: 12)
+        render json: BookSerializer.new(books, { params: { lone: false } }).as_json.merge({page: books.current_page, pages: books.total_pages})
       end
 
       def show
@@ -15,7 +16,7 @@ module Api
       end
 
       def create
-        @author = Author.create(book_params)
+        @book = Book.create(book_params)
         render json: BookSerializer.new(@book).serialized_json
       end
 

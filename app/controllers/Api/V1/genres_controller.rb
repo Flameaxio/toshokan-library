@@ -4,15 +4,16 @@ module Api
       before_action :find_genre, only: %i[show destroy]
 
       def index
-        render json: GenreSerializer.new(Genre.all).serialized_json
+        @genres = Genre.all.paginate(page: params[:page], per_page: 12)
+        render json: GenreSerializer.new(@genres).as_json.merge({page: @genres.current_page, pages: @genres.total_pages})
       end
 
       def show
-        render json: BooksByGenreSerializer.new(@genre).serialized_json
+        render json: BooksByGenreSerializer.new(@genre, params: params.to_unsafe_h).serialized_json
       end
 
       def create
-        @author = Author.create(genre_params)
+        @genre = Genre.create(genre_params)
         render json: GenreSerializer.new(@genre).serialized_json
       end
 

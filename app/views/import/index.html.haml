@@ -1,0 +1,10 @@
+= form_tag import_path, method: :post, multipart: true do
+  .form-group.row
+    %label.col-sm-2.col-form-label File
+    .col-sm-6
+      = file_field_tag 'file', class: 'form-control file-import', required: true
+  .clearfix-big
+  .form-group.row
+    %label.col-sm-2.col-form-label
+    .col-sm-6
+      = submit_tag "Import CSV", class: "btn btn-primary"

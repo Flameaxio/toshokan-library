@@ -2,26 +2,41 @@ import React, {useState, useEffect} from 'react'
 import axios from "axios";
 import Book from "./Book";
 import './books.scss'
+import {Pagination} from "semantic-ui-react";
 
 const Books = (props) => {
     const [books, setBooks] = useState([])
+    const [page, setPage] = useState(0)
+    const [pages, setPages] = useState(1)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         setBooks(props.books)
+        setPage(props.page)
+        setPages(props.pages)
     }, [props.books])
 
     useEffect(() => {
-        axios.get('/api/v1/books.json')
-            .then((resp) => {
-                if (books.length === 0 && $('#search-field').val() === '') {
-                    setBooks(resp.data.data)
+        if (loading) {
+            axios.get('/api/v1/books.json', {
+                params: {
+                    page: page + 1
                 }
             })
-            .catch((resp) => {
-                console.log('Something went wrong...')
-                console.log(resp)
-            })
-    }, [books.length])
+                .then((resp) => {
+                    if ((books.length === 0 || resp.data.page > page) && $('#search-field').val() === '') {
+                        setBooks(resp.data.data)
+                        setPage(resp.data.page - 1)
+                        setPages(resp.data.pages)
+                        setLoading(false)
+                    }
+                })
+                .catch((resp) => {
+                    console.log('Something went wrong...')
+                    console.log(resp)
+                })
+        }
+    }, [loading])
 
     const grid = books.map(item => {
         return (
@@ -31,12 +46,27 @@ const Books = (props) => {
         )
     })
 
+    const handleChange = (e, {activePage}) => {
+        let gotopage = {activePage}
+        let pagenum = gotopage.activePage
+        setLoading(true)
+        setPage(pagenum - 1)
+        window.scrollTo(0, 0)
+    }
+
+
     return (
         <div className={'catalogue'}>
             <h1>Catalogue: </h1>
             <div className="grid">
                 {grid}
             </div>
+            <Pagination
+                onPageChange={handleChange} siblingRange={1}
+                boundaryRange={0}
+                defaultActivePage={page}
+                totalPages={pages}
+            />
         </div>
     )
 }

@@ -1,0 +1,119 @@
+.table-image {
+  td, th {
+    vertical-align: middle;
+  }
+}
+
+.img-thumbnail {
+  height: 150px !important;
+}
+
+.admin-search-button {
+  margin: -1px 0 0 !important;
+}
+
+.pagination {
+  background: white;
+  cursor: default;
+  padding-bottom: 40px;
+  /* self-clearing method: */
+}
+
+.pagination a, .pagination span, .pagination em {
+  padding: 0.2em 0.5em;
+  display: block;
+  float: left;
+  margin-right: 1px;
+}
+
+.pagination .disabled {
+  color: #999999;
+  border: 1px solid #dddddd;
+}
+
+.pagination .current {
+  font-style: normal;
+  font-weight: bold;
+  background: #2e6ab1;
+  color: white;
+  border: 1px solid #2e6ab1;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #105cb6;
+  border: 1px solid #9aafe5;
+}
+
+.pagination a:hover, .pagination a:focus {
+  color: #000033;
+  border-color: #000033;
+}
+
+.pagination .page_info {
+  background: #2e6ab1;
+  color: white;
+  padding: 0.4em 0.6em;
+  width: 22em;
+  margin-bottom: 0.3em;
+  text-align: center;
+}
+
+.pagination .page_info b {
+  color: #000033;
+  background: #6aa6ed;
+  padding: 0.1em 0.25em;
+}
+
+.pagination:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+* html .pagination {
+  height: 1%;
+}
+
+*:first-child + html .pagination {
+  overflow: hidden;
+}
+
+.pagination li a {
+  display: block;
+  text-decoration: none;
+  color: #383838;
+  font-weight: 600;
+  border-radius: 50%;
+}
+
+.pagination li.pageNumber:hover a,
+.pagination li.pageNumber.active a {
+  background: #383838;
+  color: #fff;
+}
+
+.pagination li:first-child {
+  margin-right: 30px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.pagination li:last-child {
+  margin-left: 30px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+form {
+  .field {
+    .description {
+      height: 50vh !important;
+    }
+  }
+  .field + .field{
+    margin-top: 60px;
+  }
+}

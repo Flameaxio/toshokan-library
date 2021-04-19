@@ -76,4 +76,5 @@ Rails.application.configure do
 
   config.hosts << 'admin.toshokan.me'
   config.hosts << 'toshokan.me'
+
 end

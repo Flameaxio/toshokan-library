@@ -26,6 +26,7 @@ import 'select2';
 import 'semantic-ui-css/semantic.min.css'
 require('semantic-ui-react')
 require('semantic-ui-css')
+require('react-transition-group')
 
 
 Rails.start()

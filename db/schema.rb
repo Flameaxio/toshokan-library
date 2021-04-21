@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_104916) do
+ActiveRecord::Schema.define(version: 2021_04_19_151339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,12 +73,29 @@ ActiveRecord::Schema.define(version: 2021_04_14_104916) do
     t.index ["slug"], name: "index_books_on_slug"
   end
 
+  create_table "chats", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.index ["slug"], name: "index_genres_on_slug"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.bigint "chat_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -95,7 +112,8 @@ ActiveRecord::Schema.define(version: 2021_04_14_104916) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "books_bought", default: 0
-    t.bigint "subscription_id"
+    t.integer "subscription_id", default: 1
+    t.boolean "admin", default: false
     t.index ["subscription_id"], name: "index_users_on_subscription_id"
   end
 

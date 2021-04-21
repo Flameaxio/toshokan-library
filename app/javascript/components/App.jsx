@@ -10,6 +10,7 @@ import SignIn from "./Users/SignIn";
 import axios from "axios";
 import Profile from "./Users/Profile";
 import Subscriptions from "./Subscriptions/Subscriptions";
+import Feedback from './Common/Feedback'
 
 let arraysMatch = function (arr1, arr2) {
 
@@ -25,6 +26,18 @@ let arraysMatch = function (arr1, arr2) {
     return true;
 
 };
+
+
+function deleteAllCookies() {
+    let cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i];
+        let eqPos = cookie.indexOf("=");
+        let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
 
 export default class App extends Component {
     constructor(props) {
@@ -69,6 +82,7 @@ export default class App extends Component {
 
     handleLogout() {
         axios.delete('/api/v1/users/logout', {withCredentials: true}).then(() => {
+            deleteAllCookies()
             this.setState({
                 loggedInStatus: 'NOT_LOGGED_IN',
                 user: {}
@@ -106,17 +120,20 @@ export default class App extends Component {
 
     render() {
         let profile;
+        let feedback;
         if (this.state.loggedInStatus === 'LOGGED_IN') {
             profile = <Route exact path={'/profile'} render={props => (
-                <Profile {...props} user={this.state.user} books={this.state.books} page={this.state.page} pages={this.state.pages}/>
+                <Profile {...props} user={this.state.user} books={this.state.books} page={this.state.page}
+                         pages={this.state.pages}/>
             )}/>
+            feedback = <Feedback user={this.state.user}/>
         }
 
         const full = window.location.host;
         const parts = full.split('.');
         const sub = parts[0];
 
-        if(sub === 'admin')
+        if (sub === 'admin')
             return ''
 
         return (
@@ -127,19 +144,23 @@ export default class App extends Component {
                 <main>
                     <Switch>
                         <Route exact path='/' render={props => (
-                            <Books {...props} books={this.state.books} page={this.state.page} pages={this.state.pages} loggedInStatus={this.state.loggedInStatus}/>
+                            <Books {...props} books={this.state.books} page={this.state.page} pages={this.state.pages}
+                                   loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/books' render={props => (
-                            <Books {...props} books={this.state.books} page={this.state.page} pages={this.state.pages} loggedInStatus={this.state.loggedInStatus}/>
+                            <Books {...props} books={this.state.books} page={this.state.page} pages={this.state.pages}
+                                   loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/books/:slug' render={props => (
                             <Book {...props} loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/genres/:slug' render={props => (
-                            <Genres {...props} books={this.state.books} page={this.state.page} pages={this.state.pages} loggedInStatus={this.state.loggedInStatus}/>
+                            <Genres {...props} books={this.state.books} page={this.state.page} pages={this.state.pages}
+                                    loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/authors/:slug' render={props => (
-                            <Authors {...props} books={this.state.books} page={this.state.page} pages={this.state.pages} loggedInStatus={this.state.loggedInStatus}/>
+                            <Authors {...props} books={this.state.books} page={this.state.page} pages={this.state.pages}
+                                     loggedInStatus={this.state.loggedInStatus}/>
                         )}/>
                         <Route exact path='/sign_up' render={props => (
                             <SignUp {...props} handleSuccessfulAuth={this.handleSuccessfulAuth}/>
@@ -152,6 +173,7 @@ export default class App extends Component {
                         )}/>
                         {profile}
                     </Switch>
+                    {feedback}
                 </main>
             </>
         )

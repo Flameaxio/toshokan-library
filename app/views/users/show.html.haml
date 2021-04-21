@@ -1,0 +1,14 @@
+.login-wrapper
+  = form_tag '/authenticate', method: :post do
+    .alert
+      - flash.each do |type, msg|
+        %div
+          = msg
+    .field-group
+      = label_tag :email
+      = text_field_tag :email, '', class: 'form-control'
+    .field-group
+      = label_tag :password
+      = password_field_tag :password, '', class: 'form-control'
+    .field-group
+      = submit_tag 'Log in', class: 'btn btn-success'

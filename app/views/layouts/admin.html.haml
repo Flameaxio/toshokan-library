@@ -11,8 +11,9 @@
     = stylesheet_link_tag 'material-dashboard.min'
     = stylesheet_link_tag 'material-dashboard-rtl'
     = stylesheet_link_tag 'books'
+    = stylesheet_link_tag 'chats'
     = javascript_pack_tag 'application'
-    = javascript_pack_tag 'index'
+    = javascript_pack_tag 'admin/chats'
 
   %body
     .wrapper
@@ -39,6 +40,10 @@
               %a.nav-link
                 %i.material-icons
                 Users
+            %li.nav-item.users-link
+              %a.nav-link(href='/feedback')
+                %i.material-icons
+                Feedback
             %li.nav-item.users-link
               %a.nav-link(href='/import')
                 %i.material-icons

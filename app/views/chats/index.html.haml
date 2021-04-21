@@ -1,0 +1,11 @@
+.chats-main
+  - @chats.each do |chat|
+    = link_to chat, class: 'chat' do
+      .from
+        %p From
+        %p
+          =chat.user.email
+      .last-message
+        %p Last Message
+        %p
+          =chat.messages.last.content

@@ -31,7 +31,7 @@ export default class SignIn extends Component {
         }, {withCredentials: true}).then((data) => {
             if (data.data.status === 'created')
                 this.props.handleSuccessfulAuth(data.data)
-            else{
+            else {
                 const error = data.data.error
                 $('#message').html(error)
             }

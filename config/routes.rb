@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+
+  namespace :api do
+    namespace :v1 do
+      namespace :users do
+        get :logged_in, to: 'sessions#logged_in'
+      end
+      resources :messages, only: %i[create]
+    end
+  end
+
   constraints subdomain: '' do
     root 'pages#index'
   end
@@ -11,6 +21,7 @@ Rails.application.routes.draw do
       end
       resources :authors, only: %i[index show create destroy], param: :slug
       resources :genres, only: %i[index show create destroy], param: :slug
+      resources :messages, only: %i[index]
       resource :searches, except: %i[new create edit update destroy] do
         get :types
         get :search
@@ -19,7 +30,6 @@ Rails.application.routes.draw do
         resources :sessions, only: %i[create]
         resources :registrations, only: %i[create]
         delete :logout, to: 'sessions#logout'
-        get :logged_in, to: 'sessions#logged_in'
         get :subscription, to: 'sessions#subscription'
       end
       resources :subscriptions, only: %i[index]
@@ -33,8 +43,13 @@ Rails.application.routes.draw do
     post '/search', to: 'dashboard#search'
     get '/import', to: 'import#index'
     post '/import', to: 'import#create'
+    get '/login', to: 'users#show'
+    post '/authenticate', to: 'users#authenticate'
     resources :books, except: %i[show index]
+    resources :chats, only: %i[index show]
+    get '/feedback', to: 'chats#index'
   end
 
+  mount ActionCable.server => '/cable'
   get '*path', to: 'pages#index', via: :all
 end

@@ -1,0 +1,8 @@
+.chat-wrapper
+  .feedback
+    .messages-wrapper
+      - @chat.messages.reverse.each do |msg|
+        = render partial: 'chats/message', locals: { msg: msg, current_user: @current_user }
+    %form.message-form
+      %input#text-message{:placeholder => "Type your message here ...", :type => "text"}/
+      %button{:type => "submit"} Send

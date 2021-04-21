@@ -12,7 +12,6 @@ class BooksController < AdminController
     create_authors(params[:book][:author_names], @book)
     create_genres(params[:book][:genre_names], @book)
     redirect_to books_path if @book.save
-    binding.pry
   end
 
   def edit

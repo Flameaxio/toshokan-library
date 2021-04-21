@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   has_many :book_ownerships
   has_many :books, through: :book_ownerships
+  has_many :messages
+  has_one :chat
   belongs_to :subscription, optional: true
 
   validates_presence_of :email

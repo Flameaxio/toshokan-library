@@ -39,7 +39,7 @@ const Authors = (props) => {
                 .then((resp) => {
                     if ((books.length === 0 || resp.data.data.attributes.books.page > page) && $('#search-field').val() === '') {
                         setBooks(resp.data.data.attributes.books.data)
-                        setPage(resp.data.data.attributes.books.page)
+                        setPage(resp.data.data.attributes.books.page - 1)
                         setPages(resp.data.data.attributes.books.pages)
                         setLoading(false)
                     }
@@ -76,7 +76,7 @@ const Authors = (props) => {
         pagination = (<Pagination
             onPageChange={handleChange} siblingRange={1}
             boundaryRange={0}
-            defaultActivePage={page}
+            defaultActivePage={page + 1}
             totalPages={pages}
         />)
     }
@@ -90,7 +90,6 @@ const Authors = (props) => {
                         color="#00BFFF"
                         height={100}
                         width={100}
-                        timeout={3000} //3 secs
                     /></div>
                 </div>
             </div>

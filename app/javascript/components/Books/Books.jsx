@@ -65,7 +65,6 @@ const Books = (props) => {
                         color="#00BFFF"
                         height={100}
                         width={100}
-                        timeout={3000} //3 secs
                     /></div>
                 </div>
             </div>
@@ -80,7 +79,7 @@ const Books = (props) => {
             <Pagination
                 onPageChange={handleChange} siblingRange={1}
                 boundaryRange={0}
-                defaultActivePage={page}
+                defaultActivePage={page+1}
                 totalPages={pages}
             />
         </div>

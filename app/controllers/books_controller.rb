@@ -11,6 +11,10 @@ class BooksController < AdminController
     @book = Book.create(book_params)
     create_authors(params[:book][:author_names], @book)
     create_genres(params[:book][:genre_names], @book)
+    if params[:file]
+      FileUtils.cp params[:file].path, "#{Rails.root}/public/pdfs/#{@book.slug}.pdf"
+      @book.pdf_path = "#{Rails.root}/public/pdfs/#{@book.slug}.pdf"
+    end
     redirect_to books_path if @book.save
   end
 

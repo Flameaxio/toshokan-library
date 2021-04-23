@@ -1,4 +1,4 @@
-= form_for book do |f|
+= form_for book, html: { multipart: true } do |f|
   = render 'common/error', resource: book
 
   .field
@@ -20,6 +20,11 @@
       %label(for="book[author_names]") Author
       %br
       = select_tag "book[author_names]", options_from_collection_for_select(Author.all, "name", "name", book.authors.pluck(:name)), multiple: true, include_blank: true, class: 'select2 form-control'
+
+  .field
+    %label File
+    .col-sm-6
+      = file_field_tag 'file', class: 'form-control file-import', required: true, value: book.pdf_path, accept: 'application/pdf'
 
   .field
     = f.label :description

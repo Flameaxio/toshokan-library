@@ -52,6 +52,7 @@ gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'whenever'
+gem 'prawn'
 
 
 group :development, :test do

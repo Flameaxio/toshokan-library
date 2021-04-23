@@ -2,7 +2,7 @@ module Api
   module V1
     class BooksController < ApiController
       include CurrentUserConcern
-      before_action :find_book, only: %i[show destroy buy check_ownership]
+      before_action :find_book, only: %i[show destroy buy check_ownership read]
 
       def index
         books = Book.all
@@ -61,10 +61,20 @@ module Api
         end
       end
 
+      def read
+        file = File.open(@book.pdf_path)
+        base_64 = Base64.encode64(file.read)
+        render json: {
+          status: 200,
+          file: base_64
+        }
+      end
+
       private
 
       def find_book
         @book = Book.find_by(slug: params[:slug])
+        @book ||= Book.find_by(slug: params[:book_slug])
       end
 
       def book_params

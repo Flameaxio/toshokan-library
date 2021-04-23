@@ -6,11 +6,13 @@ import './book.scss'
 
 const Book = (props) => {
     const checkOwnership = (book_slug) => {
-        axios.get(`/api/v1/books/${book_slug}/check_ownership`, { params: {
-            slug: slug
-            } }).then((response)=>{
+        axios.get(`/api/v1/books/${book_slug}/check_ownership`, {
+            params: {
+                slug: slug
+            }
+        }).then((response) => {
             setOwnership(response.data.ownership === 'YES')
-        }).catch(()=>{
+        }).catch(() => {
             setOwnership(false)
         })
     }
@@ -55,27 +57,32 @@ const Book = (props) => {
     }
 
     const handleClick = () => {
-        if(props.loggedInStatus === 'LOGGED_IN'){
-            axios.post(`/api/v1/books/${slug}/buy`, { slug: slug }).then((response) => {
+        if (props.loggedInStatus === 'LOGGED_IN') {
+            axios.post(`/api/v1/books/${slug}/buy`, {slug: slug}).then((response) => {
                 let style = {color: 'red'}
-                if(''+response.data.status === ''+200){
+                if ('' + response.data.status === '' + 200) {
                     setOwnership(true)
                     style = {color: 'green'}
                 }
                 let mes = <span style={style}>{response.data.message}</span>
                 setMessage(mes)
-                })
-        }else{
+            })
+        } else {
             props.history.push('/sign_in')
         }
     }
 
     let button;
-    if(props.loggedInStatus === 'LOGGED_IN'){
-        button = (<button disabled={ownership} onClick={handleClick} className={'btn btn-success'}>{ownership ? 'Owned' : 'Buy'}</button>)
-    }
-    else{
-        button = (<button style={{fontSize: 24+'px'}} onClick={handleClick} className={'btn btn-success'}>Sign in</button>)
+    if (props.loggedInStatus === 'LOGGED_IN') {
+        if (ownership) {
+            button = (<Link to={`${slug}/read/`} className={'btn btn-success read-btn'}>Read</Link>)
+        } else {
+            button = (<button onClick={handleClick}
+                              className={'btn btn-success'}>{'Buy'}</button>)
+        }
+    } else {
+        button = (
+            <button style={{fontSize: 24 + 'px'}} onClick={handleClick} className={'btn btn-success'}>Sign in</button>)
     }
 
     return (

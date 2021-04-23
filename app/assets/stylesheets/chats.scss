@@ -26,7 +26,17 @@
   }
 
   .last-message {
-    width: 80%;
+    width: 60%;
+  }
+  .status{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i{
+      font-size: 52px;
+    }
   }
 }
 

@@ -11,6 +11,7 @@ import axios from "axios";
 import Profile from "./Users/Profile";
 import Subscriptions from "./Subscriptions/Subscriptions";
 import Feedback from './Common/Feedback'
+import Read from "./Book/Read";
 
 let arraysMatch = function (arr1, arr2) {
 
@@ -161,6 +162,9 @@ export default class App extends Component {
                         <Route exact path='/authors/:slug' render={props => (
                             <Authors {...props} books={this.state.books} page={this.state.page} pages={this.state.pages}
                                      loggedInStatus={this.state.loggedInStatus}/>
+                        )}/>
+                        <Route exact path='/books/:slug/read' render={props => (
+                            <Read {...props}/>
                         )}/>
                         <Route exact path='/sign_up' render={props => (
                             <SignUp {...props} handleSuccessfulAuth={this.handleSuccessfulAuth}/>

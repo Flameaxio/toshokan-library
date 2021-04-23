@@ -15,6 +15,10 @@ module Api
       end
 
       def index
+        unless current_user.chat
+          chat = Chat.create
+          current_user.chat = chat
+        end
         render json: { messages: current_user.chat.messages }
       end
 

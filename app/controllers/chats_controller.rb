@@ -1,7 +1,9 @@
 class ChatsController < AdminController
   include CurrentUserConcern
   def index
-    @chats = Chat.all.order(:updated_at)
+    unresolved = Chat.where(status: false).joins(:messages).distinct.order(:updated_at).reverse
+    resolved = Chat.where(status: true).joins(:messages).distinct.order(:updated_at).reverse
+    @chats = unresolved + resolved
   end
 
   def show

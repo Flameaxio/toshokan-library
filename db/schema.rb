@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_151339) do
+ActiveRecord::Schema.define(version: 2021_04_22_090825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_151339) do
     t.string "image_url"
     t.text "description"
     t.integer "sales", default: 0
+    t.string "pdf_path"
     t.index ["slug"], name: "index_books_on_slug"
   end
 
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_151339) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "status", default: false
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 

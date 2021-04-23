@@ -5,6 +5,7 @@ import '../Books/books.scss'
 import './profile.scss'
 import Subscription from "./Subscription";
 import {Pagination} from "semantic-ui-react";
+import Loader from 'react-loader-spinner'
 
 const Profile = (props) => {
     const [books, setBooks] = useState(props.books)
@@ -70,6 +71,23 @@ const Profile = (props) => {
             defaultActivePage={page}
             totalPages={pages}
         />)
+    }
+
+    if (loading) {
+        return (
+            <div className={'catalogue'}>
+                <h1>Catalogue: </h1>
+                <div className="grid">
+                    <div className="loading"><Loader
+                        type="Puff"
+                        color="#00BFFF"
+                        height={100}
+                        width={100}
+                        timeout={3000} //3 secs
+                    /></div>
+                </div>
+            </div>
+        )
     }
 
     return (

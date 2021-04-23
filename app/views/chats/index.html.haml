@@ -9,3 +9,8 @@
         %p Last Message
         %p
           =chat.messages.last.content
+      .status
+        - if chat.status
+          %i.fas.fa-check(style="color: green")
+        - else
+          %i.fas.fa-times(style="color: red")

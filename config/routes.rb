@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :books, only: %i[index show create destroy], param: :slug do
         post :buy
         get :check_ownership
+        get :read
       end
       resources :authors, only: %i[index show create destroy], param: :slug
       resources :genres, only: %i[index show create destroy], param: :slug

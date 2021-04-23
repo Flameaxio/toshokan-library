@@ -3,6 +3,7 @@ import axios from "axios";
 import Book from "./Book";
 import './books.scss'
 import {Pagination} from "semantic-ui-react";
+import Loader from "react-loader-spinner";
 
 const Books = (props) => {
     const [books, setBooks] = useState([])
@@ -54,7 +55,22 @@ const Books = (props) => {
         window.scrollTo(0, 0)
     }
 
-
+    if (loading) {
+        return (
+            <div className={'catalogue'}>
+                <h1>Catalogue: </h1>
+                <div className="grid">
+                    <div className="loading"><Loader
+                        type="Puff"
+                        color="#00BFFF"
+                        height={100}
+                        width={100}
+                        timeout={3000} //3 secs
+                    /></div>
+                </div>
+            </div>
+        )
+    }
     return (
         <div className={'catalogue'}>
             <h1>Catalogue: </h1>

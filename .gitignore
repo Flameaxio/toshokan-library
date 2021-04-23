@@ -29,7 +29,6 @@
 /config/master.key
 
 /public/packs
-/public/pdfs
 /public/packs-test
 /node_modules
 /yarn-error.log

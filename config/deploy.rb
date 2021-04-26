@@ -6,7 +6,7 @@ set :repo_url, "git@github.com:Flameaxio/toshokan-library.git"
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/toshokan-library'
-set :deploy_user, 'root'
+set :deploy_user, 'deployer'
 
 set :init_system, :systemd
 

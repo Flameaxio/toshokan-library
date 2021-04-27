@@ -10,9 +10,11 @@ set :deploy_user, 'deployer'
 
 set :init_system, :systemd
 
-append :linked_files, 'config/database.yml'
+append :linked_files, 'config/database.yml', 'config/credentials.yml.enc'
 
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads'
+
+set :bundle_flags, "--deployment"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

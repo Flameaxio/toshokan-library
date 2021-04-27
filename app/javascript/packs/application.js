@@ -32,6 +32,7 @@ require('bootstrap')
 require('@pdftron/pdfjs-express')
 require('framer-motion')
 require('react-loader-spinner')
+require( 'datatables.net-bs4' )( $ );
 
 Rails.start()
 ActiveStorage.start()

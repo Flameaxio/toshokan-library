@@ -10,7 +10,7 @@ set :deploy_user, 'deployer'
 
 set :init_system, :systemd
 
-append :linked_files, 'config/database.yml', 'config/credentials.yml.enc'
+append :linked_files, 'config/database.yml', 'config/credentials.yml.enc', 'config/master.key'
 
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads'
 

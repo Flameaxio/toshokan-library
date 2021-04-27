@@ -6,7 +6,7 @@ set :repo_url, "git@github.com:Flameaxio/toshokan-library.git"
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/toshokan-library'
-set :deploy_user, 'deployer'
+set :deploy_user, 'root'
 
 set :init_system, :systemd
 
@@ -45,6 +45,15 @@ set :bundle_flags, "--deployment"
 # set :ssh_options, verify_host_key: :secure
 
 namespace :deploy do
+  namespace :assets do
+    task :own do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute :chmod, '-R', '777', '/var/www/'
+      end
+    end
+
+    before :precompile, :own
+  end
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do

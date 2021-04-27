@@ -23,6 +23,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 require("chartkick/chart.js")
 require("popper.js")
 require('select2')
+require('moment')
 require('select2/dist/css/select2.css')
 require('semantic-ui-react')
 require('semantic-ui-css')

@@ -2,6 +2,7 @@
   "name": "toshokan-library",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.0.0-0",
     "@babel/preset-react": "^7.13.13",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@mikecousins/react-pdf": "^5.5.1",
@@ -36,10 +37,12 @@
     "react-transition-group": "^4.4.1",
     "select2": "^4.1.0-rc.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3"
+    "semantic-ui-react": "^2.0.3",
+    "webpack": "^5.1.0"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
     "@babel/preset-react": "^7.13.13",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@mikecousins/react-pdf": "^5.5.1",
@@ -72,6 +75,7 @@
     "select2": "^4.1.0-rc.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
+    "webpack": "^5.1.0",
     "webpack-dev-server": "^3.11.2"
   }
 }

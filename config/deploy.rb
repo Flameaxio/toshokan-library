@@ -1,8 +1,8 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.16.0"
+lock '~> 3.16.0'
 
-set :application, "toshokan-library"
-set :repo_url, "git@github.com:Flameaxio/toshokan-library.git"
+set :application, 'toshokan-library'
+set :repo_url, 'git@github.com:Flameaxio/toshokan-library.git'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/toshokan-library'
@@ -12,9 +12,9 @@ set :init_system, :systemd
 
 append :linked_files, 'config/database.yml', 'config/credentials.yml.enc', 'config/master.key'
 
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads', "public/packs", ".bundle", "node_modules"
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads', 'public/packs', '.bundle', 'node_modules'
 
-set :bundle_flags, "--deployment"
+set :bundle_flags, '--deployment'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -52,7 +52,26 @@ namespace :deploy do
       end
     end
 
+    task :install_webpacker do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute :npm, 'install', '-D', 'webpack'
+        execute :npm, 'install', '-D', 'webpack-cli'
+        execute :yarn, 'add', '-D', 'webpack'
+        execute :yarn, 'add', '-D', 'webpack-cli'
+      end
+    end
+
+    task :fix_endings do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute :git, 'config', '--global', 'core.autocrlf', 'true'
+        execute :find, './', '-type', 'f', '-exec', 'dos2unix', '{}', '\\;'
+        execute :find, '/usr/local/rvm/', '-type', 'f', '-exec', 'dos2unix', '{}', '\\;'
+      end
+    end
+
     before :precompile, :own
+    before :precompile, :install_webpacker
+    before :precompile, :fix_endings
   end
   desc 'Restart application'
   task :restart do
@@ -65,9 +84,9 @@ namespace :deploy do
   after :publishing, :restart
 end
 
-before "deploy:assets:precompile", "deploy:yarn_install"
+before 'deploy:assets:precompile', 'deploy:yarn_install'
 namespace :deploy do
-  desc "Run rake yarn install"
+  desc 'Run rake yarn install'
   task :yarn_install do
     on roles(:web) do
       within release_path do

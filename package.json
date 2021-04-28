@@ -20,6 +20,7 @@
     "datatables": "^1.10.18",
     "datatables.net-bs4": "^1.10.24",
     "framer-motion": "^4.1.8",
+    "globally": "^0.0.0",
     "humanize-string": "^2.1.0",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
@@ -38,7 +39,7 @@
     "select2": "^4.1.0-rc.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "webpack": "^5.1.0"
+    "webpack": "^5.36.0"
   },
   "version": "0.1.0",
   "devDependencies": {

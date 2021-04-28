@@ -54,18 +54,15 @@ namespace :deploy do
 
     task :install_webpacker do
       on roles(:app), in: :sequence, wait: 5 do
-        execute :npm, 'install', '-D', 'webpack'
-        execute :npm, 'install', '-D', 'webpack-cli'
-        execute :yarn, 'add', '-D', 'webpack'
-        execute :yarn, 'add', '-D', 'webpack-cli'
+        #execute 'NODE_ENV=production npm install -g webpack webpack-cli'
+        execute 'YARN_PRODUCTION=true yarn add globally webpack webpack-cli'
       end
     end
 
     task :fix_endings do
       on roles(:app), in: :sequence, wait: 5 do
-        execute :git, 'config', '--global', 'core.autocrlf', 'true'
+        execute :git, 'config', '--global', 'core.autocrlf', 'false'
         execute :find, './', '-type', 'f', '-exec', 'dos2unix', '{}', '\\;'
-        execute :find, '/usr/local/rvm/', '-type', 'f', '-exec', 'dos2unix', '{}', '\\;'
       end
     end
 

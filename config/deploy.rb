@@ -6,7 +6,7 @@ set :repo_url, 'git@github.com:Flameaxio/toshokan-library.git'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/toshokan-library'
-set :deploy_user, 'root'
+set :deploy_user, 'deployer'
 
 set :init_system, :systemd
 
@@ -45,31 +45,31 @@ set :bundle_flags, '--deployment'
 # set :ssh_options, verify_host_key: :secure
 
 namespace :deploy do
-  namespace :assets do
-    task :own do
-      on roles(:app), in: :sequence, wait: 5 do
-        execute :chmod, '-R', '777', '/var/www/'
-      end
-    end
-
-    task :install_webpacker do
-      on roles(:app), in: :sequence, wait: 5 do
-        #execute 'NODE_ENV=production npm install -g webpack webpack-cli'
-        execute 'YARN_PRODUCTION=true yarn add globally webpack webpack-cli'
-      end
-    end
-
-    task :fix_endings do
-      on roles(:app), in: :sequence, wait: 5 do
-        execute :git, 'config', '--global', 'core.autocrlf', 'false'
-        execute :find, './', '-type', 'f', '-exec', 'dos2unix', '{}', '\\;'
-      end
-    end
-
-    before :precompile, :own
-    before :precompile, :install_webpacker
-    before :precompile, :fix_endings
-  end
+  #namespace :assets do
+  #  task :own do
+  #    on roles(:app), in: :sequence, wait: 5 do
+  #      execute :chmod, '-R', '777', '/var/www/'
+  #    end
+  #  end
+#
+  #  task :install_webpacker do
+  #    on roles(:app), in: :sequence, wait: 5 do
+  #      execute 'NODE_ENV=production npm install -g webpack webpack-cli'
+  #      #execute 'YARN_PRODUCTION=true yarn add globally webpack webpack-cli'
+  #    end
+  #  end
+#
+  #  task :fix_endings do
+  #    on roles(:app), in: :sequence, wait: 5 do
+  #      execute :git, 'config', '--global', 'core.autocrlf', 'false'
+  #      execute :find, './', '-type', 'f', '-exec', 'dos2unix', '{}', '\\;'
+  #    end
+  #  end
+#
+  #  before :precompile, :own
+  #  before :precompile, :install_webpacker
+  #  before :precompile, :fix_endings
+  #end
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -81,14 +81,14 @@ namespace :deploy do
   after :publishing, :restart
 end
 
-before 'deploy:assets:precompile', 'deploy:yarn_install'
-namespace :deploy do
-  desc 'Run rake yarn install'
-  task :yarn_install do
-    on roles(:web) do
-      within release_path do
-        execute("cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
-      end
-    end
-  end
-end
+#before 'deploy:assets:precompile', 'deploy:yarn_install'
+#namespace :deploy do
+#  desc 'Run rake yarn install'
+#  task :yarn_install do
+#    on roles(:web) do
+#      within release_path do
+#        execute("cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
+#      end
+#    end
+#  end
+#end

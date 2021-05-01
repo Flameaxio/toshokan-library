@@ -10,7 +10,7 @@ set :deploy_user, 'deployer'
 
 set :init_system, :systemd
 
-append :linked_files, 'config/database.yml', 'config/master.key', '.env.production'
+append :linked_files, 'config/database.yml', 'config/master.key', '.env.production', 'config/schedule.rb'
 
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads', '.bundle', 'node_modules'
 
@@ -66,6 +66,14 @@ namespace :deploy do
     task :own do
       on roles(:app), in: :sequence, wait: 5 do
         execute :chmod, '-R', '777', '/var/www/toshokan-library/releases'
+      end
+    end
+  end
+  after 'deploy:symlink:release', 'deploy:update_crontab'
+  task :update_crontab do
+    on roles(:all) do
+      within current_path do
+        execute :bundle, :exec, :whenever, "--update-crontab", "./config/schedule.rb"
       end
     end
   end

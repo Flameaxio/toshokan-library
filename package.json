@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.0.0-0",
+    "babel": "^5.8.23",
+    "babel-loader": "^5.0.0-0",
     "@babel/preset-react": "^7.13.13",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@mikecousins/react-pdf": "^5.5.1",
@@ -39,7 +41,7 @@
     "select2": "^4.1.0-rc.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "webpack": "^5.36.0"
+    "webpack": "^4.36.0"
   },
   "version": "0.1.0",
   "devDependencies": {
@@ -76,8 +78,6 @@
     "select2": "^4.1.0-rc.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "webpack": "^5.1.0",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^4.36.0"
   }
 }

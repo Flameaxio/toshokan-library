@@ -7,6 +7,7 @@ require "capistrano/rvm"
 require "capistrano/bundler"
 require "capistrano/rails"
 require 'whenever/capistrano'
+require "capistrano/webpacker/precompile"
 
 # Load the SCM plugin appropriate to your project:
 #

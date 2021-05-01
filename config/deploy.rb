@@ -12,9 +12,23 @@ set :init_system, :systemd
 
 append :linked_files, 'config/database.yml', 'config/master.key', '.env.production'
 
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads', 'public/packs', '.bundle', 'node_modules'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/uploads', '.bundle', 'node_modules'
+
+# capistrano-rails config
+set :assets_roles, %i[webpack] # Give the webpack role to a single server
+set :assets_prefix, 'packs' # Assets are located in /packs/
+set :keep_assets, 10 # Automatically remove stale assets
+set :assets_manifests, lambda { # Tell Capistrano-Rails how to find the Webpacker manifests
+  [release_path.join('public', fetch(:assets_prefix), 'manifest.json*')]
+}
+
+set :conditionally_migrate, true # Only attempt migration if db/migrate changed - not related to Webpacker, but a nice thing
 
 set :bundle_flags, '--deployment'
+
+set :default_env, {
+  'PATH' => '/home/deployer/.nvm/versions/node/v12.22.1/bin:$PATH'
+}
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -44,30 +58,25 @@ set :bundle_flags, '--deployment'
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
+after 'deploy:updated', 'webpacker:precompile'
+
 namespace :deploy do
-  #namespace :assets do
-  #  task :own do
-  #    on roles(:app), in: :sequence, wait: 5 do
-  #      execute :chmod, '-R', '777', '/var/www/'
-  #    end
-  #  end
-#
-  #  task :install_webpacker do
-  #    on roles(:app), in: :sequence, wait: 5 do
-  #      execute 'NODE_ENV=production npm install -g webpack webpack-cli'
-  #      #execute 'YARN_PRODUCTION=true yarn add globally webpack webpack-cli'
-  #    end
-  #  end
-#
+  namespace :assets do
+    before :precompile, :own
+    task :own do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute :chmod, '-R', '777', '/var/www/toshokan-library/releases'
+      end
+    end
+  end
+  #
   #  task :fix_endings do
   #    on roles(:app), in: :sequence, wait: 5 do
   #      execute :git, 'config', '--global', 'core.autocrlf', 'false'
   #      execute :find, './', '-type', 'f', '-exec', 'dos2unix', '{}', '\\;'
   #    end
   #  end
-#
-  #  before :precompile, :own
-  #  before :precompile, :install_webpacker
+  #
   #  before :precompile, :fix_endings
   #end
   desc 'Restart application'

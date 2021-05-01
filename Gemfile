@@ -66,6 +66,7 @@ group :development, :test do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
+  gem 'capistrano-webpacker-precompile', require: false
 end
 
 group :development do

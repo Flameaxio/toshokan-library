@@ -20,6 +20,8 @@ import 'select2/dist/css/select2.css';
 import 'select2';
 import 'semantic-ui-css/semantic.min.css'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+require('datatables.net')
+require('datatables.net-dt')
 require("chartkick/chart.js")
 require("popper.js")
 require('select2')

@@ -62,7 +62,7 @@ module Api
       end
 
       def read
-        file = File.open(@book.pdf_path)
+        file = File.open(@book.path)
         base_64 = Base64.encode64(file.read)
         render json: {
           status: 200,

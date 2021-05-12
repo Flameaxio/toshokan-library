@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios";
-import './subscriptions.scss'
 
 const Subscriptions = () => {
     const [subscriptions, setSubscriptions] = useState([])

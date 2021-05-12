@@ -16,7 +16,6 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "@fortawesome/fontawesome-free/css/all"
 import $ from 'jquery'
-import 'select2/dist/css/select2.css';
 import 'select2';
 import 'semantic-ui-css/semantic.min.css'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";

@@ -2,7 +2,6 @@ import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import WebViewer from '@pdftron/pdfjs-express';
-import './read.scss'
 import Loader from 'react-loader-spinner'
 
 function base64ToBlob(base64) {

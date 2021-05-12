@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios";
 import Book from "./Book";
-import './books.scss'
 import {Pagination} from "semantic-ui-react";
 import Loader from "react-loader-spinner";
 

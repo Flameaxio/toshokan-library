@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import logo from 'images/logo_transparent.png'
 import {Link, useHistory} from "react-router-dom"
-import './header.scss'
 import './header'
 import axios from "axios";
 

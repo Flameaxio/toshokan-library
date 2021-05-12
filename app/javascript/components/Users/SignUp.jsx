@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios'
-import './sign_up.scss'
 
 
 export default class Registration extends Component {

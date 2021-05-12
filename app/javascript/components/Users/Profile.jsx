@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import Book from "../Books/Book";
-import '../Books/books.scss'
-import './profile.scss'
 import Subscription from "./Subscription";
 import {Pagination} from "semantic-ui-react";
 import Loader from 'react-loader-spinner'

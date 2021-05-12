@@ -10,6 +10,10 @@ class Book < ApplicationRecord
 
   before_destroy :clear_pdf
 
+  def path
+    "#{Rails.root}/public/pdfs/#{slug}.pdf"
+  end
+
   private
 
   def slugify

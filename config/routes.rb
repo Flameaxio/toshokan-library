@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   constraints subdomain: '' do
+    get '/confirm/:id', to: 'users#confirm'
     root 'pages#index'
   end
 

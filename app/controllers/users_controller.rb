@@ -10,4 +10,14 @@ class UsersController < ApplicationController
       redirect_to '/login', alert: 'Wrong input!'
     end
   end
+
+  def confirm
+    user = User.find_by(id: params[:id])
+    user.confirmed = true
+    if user.save
+      redirect_to '/'
+    else
+      render file: 'public/500.html', status: :not_acceptable, layout: false
+    end
+  end
 end

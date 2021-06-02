@@ -16,34 +16,25 @@ module Api
                 else
                   Object.const_get(type)
                 end
-        search_result = klass.search("#{params[:query]}", :ranker => :bm25)
         books = []
-        if type != 'Book'
-          unless params[:value] == 'profile'
-            search_result.select! do |item|
-              item.slug == params[:value]
-            end
+        if klass.to_s != 'Book'
+          search_result = Book.search(params[:query].to_s).select do |item|
+            item.send("#{klass.to_s.downcase}s").include?(klass.find_by(slug: params[:value]))
           end
-          search_result.map do |item|
-            case type
-            when 'Genre'
-              BookGenreRelationship.where(genre_id: item.id).map do |relation|
-                books << Book.where(id: relation.book_id)&.first
-              end
-            when 'Author'
-              BookAuthorRelationship.where(genre_id: item.id).map do |relation|
-                books << Book.where(id: relation.book_id)&.first
-              end
-            when 'Profile'
+          ids = search_result.collect(&:id)
+        else
+          search_result = Book.search(params[:query].to_s)
+          if type == 'Profile'
+            search_result.map do |item|
               BookOwnership.where(book_id: item.id).map do |relation|
                 books << Book.where(id: relation.book_id)&.first
               end
             end
+            ids = books.collect(&:id)
+          else
+            ids = search_result.collect(&:id)
           end
-        else
-          books = search_result
         end
-        ids = books.collect(&:id)
         @books = Book.where(id: ids).order('books.created_at ASC').paginate(page: params[:page], per_page: 30)
 
         render json: BookSerializer.new(@books, { params: { lone: false } }).as_json.merge({ page: @books.current_page, pages: @books.total_pages })

@@ -6,10 +6,10 @@ module Api
           user = User.create(user_params)
 
           if user
-            session[:user_id] = user.id
+            ConfirmationsMailer.confirmation(user, request.base_url).deliver
+            #session[:user_id] = user.id
             render json: {
-              status: :created,
-              user: user
+              status: 200
             }
           else
             render json: {

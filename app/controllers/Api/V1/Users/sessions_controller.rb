@@ -6,7 +6,7 @@ module Api
 
         def create
           user = User.find_by(email: params[:user][:email])&.authenticate(params[:user][:password])
-          if user
+          if user&.confirmed
             session[:user_id] = user.id
             render json: {
               status: :created,
@@ -16,7 +16,7 @@ module Api
           else
             render json: {
               status: 401,
-              error: 'No such user!'
+              error: 'No such user or you didn\'t confirm your email!'
             }
           end
         end
